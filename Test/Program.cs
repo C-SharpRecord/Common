@@ -9,7 +9,7 @@ namespace Test
         {
             UniqueGenerator ug = new UniqueGenerator(1, 1, 1);
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 Console.WriteLine(ug.GetNextId());
             }
