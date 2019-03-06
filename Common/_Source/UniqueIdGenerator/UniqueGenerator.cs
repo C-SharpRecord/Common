@@ -32,6 +32,8 @@ namespace Common.UniqueIdGenerator
 
         private long lastTimestamp = -1L;
 
+        private static readonly object locker = new object();
+
         /// <summary>
         /// ctor
         /// </summary>
@@ -59,27 +61,31 @@ namespace Common.UniqueIdGenerator
 
         public long GetNextId()
         {
-            long timestamp = GetTimestamp();
-
-            if (lastTimestamp == timestamp)
+            lock (locker)
             {
-                Sequence = (Sequence + 1) & sequenceMask;
-                if (Sequence == 0)
+
+                long timestamp = GetTimestamp();
+
+                if (lastTimestamp == timestamp)
                 {
-                    timestamp = GetNextTimestamp(lastTimestamp);
+                    Sequence = (Sequence + 1) & sequenceMask;
+                    if (Sequence == 0)
+                    {
+                        timestamp = GetNextTimestamp(lastTimestamp);
+                    }
                 }
-            }
-            else
-            {
-                Sequence = 0;
-            }
+                else
+                {
+                    Sequence = 0;
+                }
 
-            lastTimestamp = timestamp;
+                lastTimestamp = timestamp;
 
-            return ((timestamp) << (int)timestampLeftShift) |
-                    (DatacenterId << (int)datacenterIdShift) |
-                    (WorkId << (int)workerIdShift) |
-                    Sequence;
+                return ((timestamp) << (int)timestampLeftShift) |
+                        (DatacenterId << (int)datacenterIdShift) |
+                        (WorkId << (int)workerIdShift) |
+                        Sequence;
+            }
         }
 
         private long GetTimestamp()
