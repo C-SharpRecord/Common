@@ -3,3 +3,7 @@
 ################################################################################
 
 /.vs/Common
+/Common/bin/Debug/netstandard2.0
+/Common/obj
+/Test/bin/Debug/netcoreapp2.1
+/Test/obj
