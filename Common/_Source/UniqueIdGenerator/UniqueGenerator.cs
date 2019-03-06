@@ -6,6 +6,10 @@ namespace Common.UniqueIdGenerator
 {
     /// <summary>
     /// snowflake
+    /// 64-bits 
+    /// ------------------------------------------------------------------------------
+    /// | 0 | 41-bit timestamp | 5-bit DatacenterId | 5-bit WorkId | 12-bit Sequence |
+    /// ------------------------------------------------------------------------------
     /// </summary>
     public class UniqueGenerator
     {
