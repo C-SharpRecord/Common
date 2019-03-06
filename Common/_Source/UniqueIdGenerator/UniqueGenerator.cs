@@ -28,7 +28,12 @@ namespace Common.UniqueIdGenerator
 
         private long lastTimestamp = -1L;
 
-
+        /// <summary>
+        /// ctor
+        /// </summary>
+        /// <param name="workId">workId，(system、business..)(5 bit)(0-31)</param>
+        /// <param name="datacenterId">datacenterId, machine id(5 bit)(0-31)</param>
+        /// <param name="sequence">sequence (12 bit)(0-4095)</param>
         public UniqueGenerator(long workId, long datacenterId, long sequence)
         {
             if (workId > maxWorkerId || workId < 1)

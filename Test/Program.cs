@@ -14,8 +14,20 @@ namespace Test
                 Console.WriteLine(ug.GetNextId());
             }
 
+            CalculationDetail(ug.GetNextId());
+
             Console.WriteLine("end..");
             Console.Read();
+        }
+
+        static void CalculationDetail(long value)
+        {
+            Console.WriteLine($"value:{value}");
+            Console.WriteLine($"timestmap:{value >> 22}");
+            Console.WriteLine($"DatacenterId:{(value << 42)>>59}");
+            Console.WriteLine($"WorkId:{(value << 47) >> 59}");
+            Console.WriteLine($"Sequence:{(value << 52) >> 52}");
+
         }
     }
 }
